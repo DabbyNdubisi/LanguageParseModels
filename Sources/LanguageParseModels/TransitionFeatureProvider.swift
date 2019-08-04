@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TransitionFeatureProvider {
+public struct TransitionFeatureProvider {
     static let noneToken = "<NONE>" // Equivalent of nil when there is no tag (needed during feature extraction)
     
     private static let index2Tags: [String] = POSTag.allCases.map { $0.tagString }
@@ -30,7 +30,7 @@ struct TransitionFeatureProvider {
         return [TransitionFeatureProvider.noneToken] + TransitionFeatureProvider.index2Tags + TransitionFeatureProvider.index2DependencyRelation
     }
     
-    init(index2Word: [String]) {
+    public init(index2Word: [String]) {
         // construct consolidated index2Word mapping that consists of
         // <NONE> + tags + labels + words
         self.index2Token = TransitionFeatureProvider.domainTokens + index2Word

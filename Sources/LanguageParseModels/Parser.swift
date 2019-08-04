@@ -9,19 +9,19 @@
 import Foundation
 import NaturalLanguage
 
-class Parser {
+public class Parser {
     static let rootPrefix = "<ROOT>"
     private var rootPrefix: String { Parser.rootPrefix }
     
     private let model: ParserModel
     private let featureProvider: TransitionFeatureProvider
 
-    init(model: ParserModel, featureProvider: TransitionFeatureProvider) {
+    public init(model: ParserModel, featureProvider: TransitionFeatureProvider) {
         self.model = model
         self.featureProvider = featureProvider
     }
 
-    func parse(sentence: String) throws -> Parse {
+    public func parse(sentence: String) throws -> Parse {
         guard sentence.range(of: rootPrefix) != nil else {
             return try parse(sentence: "\(rootPrefix) \(sentence)")
         }

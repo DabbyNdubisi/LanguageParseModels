@@ -14,15 +14,15 @@ public enum ParseError: Error {
 
 /// Model
 public struct Parse {
-    let n: Int
-    private(set) var heads: [Dependency?]
-    private(set) var lefts: [[Token]]
-    private (set) var rights: [[Token]]
+    public let n: Int
+    public private(set) var heads: [Dependency?]
+    public private(set) var lefts: [[Token]]
+    public private(set) var rights: [[Token]]
     
     /// Initializer
     /// - Parameters:
     ///     - n: number of tokens in the sentence (including the <ROOT> token)
-    init(n: Int) {
+    public init(n: Int) {
         self.n = n
         heads = .init(repeating: nil, count: n)
         lefts = .init(repeating: [], count: n)

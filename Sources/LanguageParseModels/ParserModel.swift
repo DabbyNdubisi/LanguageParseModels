@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ParserModel {
+public protocol ParserModel {
     func transitionProbabilities(for features: [Int32]) throws -> [Int: Float]
 }
