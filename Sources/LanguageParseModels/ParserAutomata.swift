@@ -19,7 +19,7 @@ struct ParserAutomata {
         // reverse buffer array to make popping first element efficient
         self.buffer = buffer.reversed()
         self.stack = [rootToken]
-        self.parse = Parse(n: 1 + buffer.count)
+        self.parse = Parse(tokens: [rootToken] + buffer)
     }
     
     var isTerminal: Bool {

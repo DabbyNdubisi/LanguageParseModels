@@ -14,19 +14,22 @@ public enum ParseError: Error {
 
 /// Model
 public struct Parse {
-    public let n: Int
+    public var n: Int {
+        return tokens.count
+    }
+    public let tokens: [Token]
     public private(set) var heads: [Dependency?]
     public private(set) var lefts: [[Token]]
     public private(set) var rights: [[Token]]
     
     /// Initializer
     /// - Parameters:
-    ///     - n: number of tokens in the sentence (including the <ROOT> token)
-    public init(n: Int) {
-        self.n = n
-        heads = .init(repeating: nil, count: n)
-        lefts = .init(repeating: [], count: n)
-        rights = .init(repeating: [], count: n)
+    ///     - tokens: array of tokens in the sentence (including the <ROOT> token)
+    public init(tokens: [Token]) {
+        self.tokens = tokens
+        heads = .init(repeating: nil, count: tokens.count)
+        lefts = .init(repeating: [], count: tokens.count)
+        rights = .init(repeating: [], count: tokens.count)
     }
     
     public mutating func add(dependency: Dependency, to node: Token) throws {
