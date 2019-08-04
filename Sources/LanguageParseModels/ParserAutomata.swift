@@ -50,13 +50,11 @@ struct ParserAutomata {
             }
         }
         
-        if stack.count >= 2 {
-            // This ensures that there can only be one `root` dependency
-            if stack.count == 2 && buffer.isEmpty {
-                valids += [Transition.right(relation: .root)]
-            } else {
-                valids += Transition.allRights.filter({ $0.relation != .root })
-            }
+        // This ensures that there can only be one `root` dependency
+        if stack.count == 2 && buffer.isEmpty {
+            valids += [Transition.right(relation: .root)]
+        } else if stack.count >= 3 {
+            valids += Transition.allRights.filter({ $0.relation != .root })
         }
         
         return valids

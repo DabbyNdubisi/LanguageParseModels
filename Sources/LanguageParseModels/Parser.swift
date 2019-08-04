@@ -15,7 +15,6 @@ class Parser {
     
     private let model: ParserModel
     private let featureProvider: TransitionFeatureProvider
-    private let tagger: NLTagger = NLTagger(tagSchemes: [.lexicalClass])
 
     init(model: ParserModel, featureProvider: TransitionFeatureProvider) {
         self.model = model
@@ -26,7 +25,7 @@ class Parser {
         guard sentence.range(of: rootPrefix) != nil else {
             return try parse(sentence: "\(rootPrefix) \(sentence)")
         }
-        var state = ParserAutomata(tagger: tagger, rootPrefix: rootPrefix, sentence: sentence)
+        var state = ParserAutomata(rootPrefix: rootPrefix, sentence: sentence)
 
         while !state.isTerminal {
             let valids = state.validTransitions()

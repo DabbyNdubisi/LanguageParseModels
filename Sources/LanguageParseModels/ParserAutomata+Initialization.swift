@@ -10,10 +10,11 @@ import Foundation
 import NaturalLanguage
 
 extension ParserAutomata {
-    init(tagger: NLTagger = NLTagger(tagSchemes: [.lexicalClass]), rootPrefix: String, sentence: String) {
+    init(rootPrefix: String, sentence: String) {
         let rootPrefixRange = sentence.range(of: rootPrefix)!
         let remainingSentenceRange = sentence.range(of: sentence.suffix(from: rootPrefixRange.upperBound))!
         
+        let tagger = NLTagger(tagSchemes: [.lexicalClass])
         tagger.string = sentence
         let rootToken = Token(i: 0, sentenceRange: rootPrefixRange, posTag: .root)
         self.init(
