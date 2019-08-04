@@ -10,7 +10,8 @@ import Foundation
 import NaturalLanguage
 
 public class Parser {
-    static let rootPrefix = "<ROOT>"
+    public static let rootPrefix = "<ROOT>"
+    
     private var rootPrefix: String { Parser.rootPrefix }
     
     private let model: ParserModel

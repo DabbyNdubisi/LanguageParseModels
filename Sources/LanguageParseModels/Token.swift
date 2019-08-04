@@ -16,5 +16,11 @@ public struct Token: Equatable {
     /// range of token in the reference sentence
     public var sentenceRange: Range<String.Index>
     /// Part-of-Speech tag of the token
-    var posTag: POSTag
+    public var posTag: POSTag
+    
+    public init(i: Int, sentenceRange: Range<String.Index>, posTag: POSTag) {
+        self.i = i
+        self.sentenceRange = sentenceRange
+        self.posTag = posTag
+    }
 }

@@ -10,9 +10,10 @@ import XCTest
 
 final class ParseTests: XCTestCase {
     func testAddingRightTransitionDependency() throws {
-        var parse = Parse(n: 2)
+        let tokens = [Token(i: 0, sentenceRange: "1 2".range(of: "1")!, posTag: .number), Token(i: 1, sentenceRange: "1 2".range(of: "2")!, posTag: .number)]
+        var parse = Parse(tokens: tokens)
         
-        let token = Token(i: 1, sentenceRange: "1 2".range(of: "2")!, posTag: .number)
+        let token = tokens[1]
         try parse.add(dependency: Dependency(head: 0, relationship: .acl), to: token)
         
         XCTAssertNotNil(parse.heads[token.i])
@@ -21,9 +22,10 @@ final class ParseTests: XCTestCase {
     }
     
     func testAddingLeftTransitionDependency() throws {
-        var parse = Parse(n: 2)
+        let tokens = [Token(i: 0, sentenceRange: "1 2".range(of: "1")!, posTag: .number), Token(i: 1, sentenceRange: "1 2".range(of: "2")!, posTag: .number)]
+        var parse = Parse(tokens: tokens)
         
-        let token = Token(i: 0, sentenceRange: "1 2".range(of: "2")!, posTag: .number)
+        let token = tokens[0]
         try parse.add(dependency: Dependency(head: 1, relationship: .acl), to: token)
         
         XCTAssertNotNil(parse.heads[token.i])

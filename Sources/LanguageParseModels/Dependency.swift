@@ -10,6 +10,11 @@ import Foundation
 /// Simple dependency structure depicting single
 /// parent and child dependency
 public struct Dependency {
-    let head: Int
-    let relationship: DependencyRelation
+    public let head: Int
+    public let relationship: DependencyRelation
+    
+    public init(head: Int, relationship: DependencyRelation) {
+        self.head = head
+        self.relationship = relationship
+    }
 }

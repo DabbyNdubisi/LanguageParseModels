@@ -43,7 +43,7 @@ public enum POSTag: Equatable, CaseIterable {
 }
 
 extension POSTag {
-    init?(nlTag: NLTag) {
+    public init?(nlTag: NLTag) {
         switch nlTag {
         case .word:
             self = .word
