@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum Transition: Equatable, Hashable {
+public enum Transition: Equatable, Hashable {
     case shift
     case left(relation: DependencyRelation)
     case right(relation: DependencyRelation)
     
-    static var numberOfTransitions: Int {
+    public static var numberOfTransitions: Int {
         // Number of possible transitions ((n_possibleRelations * 2) + 1) Left, Right, Shift)
         return (2 * DependencyRelation.allCases.count) + 1
     }
