@@ -43,7 +43,7 @@ public struct TransitionFeatureProvider {
         self.token2Index = token2Index
     }
     
-    func features(for state: ParserAutomata, sentence: String) -> [Int32] {
+    func features(for state: ParserAutomata) -> [Int32] {
         let top3Stack = state.stackTop(k: 3)
         let top3Buffer = state.bufferTop(k: 3)
         var s0l0: Token? =  nil
@@ -103,7 +103,7 @@ public struct TransitionFeatureProvider {
         // nw: 18 features for words
         let nonStackNonBufferFeatures = [ s0l0, s0l1, s0r0, s0r1, s1l0, s1l1, s1r0, s1r1, s0l0_of_l0, s0r0_of_r0, s1l0_of_l0, s1r0_of_r0]
         let nw = (filledTop3Stack + filledTop3Buffer + nonStackNonBufferFeatures).map({ token -> String in
-            token == nil ? TransitionFeatureProvider.noneToken : String(sentence[token!.sentenceRange])
+            token == nil ? TransitionFeatureProvider.noneToken : token!.lemma
         })
         let nt = (filledTop3Stack + filledTop3Buffer + nonStackNonBufferFeatures).map({ ($0 ?? nil)?.posTag })
         let nl = nonStackNonBufferFeatures.map({ $0 == nil ? nil : (state.parse.heads[$0!.i])?.relationship })
@@ -114,15 +114,15 @@ public struct TransitionFeatureProvider {
     }
     
     func index(word: String) -> Int32 {
-        return index(for: word.lowercased())
+        return index(for: word) ?? index(for: word.lowercased()) ?? noneIndex
     }
     
     func index(tag: POSTag) -> Int32 {
-        return index(for: tag.tagString)
+        return index(for: tag.tagString) ?? noneIndex
     }
     
     func index(depRelation: DependencyRelation) -> Int32 {
-        return index(for: depRelation.relationString)
+        return index(for: depRelation.relationString) ?? noneIndex
     }
     
     // MARK: - Private helpers
@@ -130,8 +130,8 @@ public struct TransitionFeatureProvider {
         return index2Token[Int(index)]
     }
     
-    private func index(for token: String) -> Int32 {
-        return token2Index[token] ?? noneIndex
+    private func index(for token: String) -> Int32? {
+        return token2Index[token]
     }
     
     private var noneIndex: Int32 {

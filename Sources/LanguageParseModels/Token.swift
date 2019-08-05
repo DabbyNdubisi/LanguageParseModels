@@ -15,12 +15,15 @@ public struct Token: Equatable {
     public var i: Int
     /// range of token in the reference sentence
     public var sentenceRange: Range<String.Index>
+    /// lemmatized version of token
+    public var lemma: String
     /// Part-of-Speech tag of the token
     public var posTag: POSTag
     
-    public init(i: Int, sentenceRange: Range<String.Index>, posTag: POSTag) {
+    public init(i: Int, sentenceRange: Range<String.Index>, lemma: String, posTag: POSTag) {
         self.i = i
         self.sentenceRange = sentenceRange
+        self.lemma = lemma
         self.posTag = posTag
     }
 }

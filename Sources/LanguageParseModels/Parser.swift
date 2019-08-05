@@ -30,7 +30,7 @@ public class Parser {
 
         while !state.isTerminal {
             let valids = state.validTransitions()
-            let transitionProbabilities = try model.transitionProbabilities(for: featureProvider.features(for: state, sentence: sentence))
+            let transitionProbabilities = try model.transitionProbabilities(for: featureProvider.features(for: state))
             let bestPrediction = valids.max(by: {
                 transitionProbabilities[$0.rawValue]! < transitionProbabilities[$1.rawValue]!
             })!
