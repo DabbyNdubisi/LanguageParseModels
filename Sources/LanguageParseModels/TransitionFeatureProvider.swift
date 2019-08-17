@@ -54,9 +54,12 @@ public struct TransitionFeatureProvider {
         var s1l1: Token? = nil
         var s1r0: Token? = nil
         var s1r1: Token? = nil
+        var b0l0: Token? = nil
+        var b0l1: Token? = nil
         var s0l0_of_l0: Token? = nil
-        var s0r0_of_r0: Token? = nil
         var s1l0_of_l0: Token? = nil
+        var b0l0_of_l0: Token? = nil
+        var s0r0_of_r0: Token? = nil
         var s1r0_of_r0: Token? = nil
         
         if top3Stack.count > 0 {
@@ -93,6 +96,16 @@ public struct TransitionFeatureProvider {
                 s1r0_of_r0 = s1RightMostChildRightChildren.last ?? nil
             }
         }
+        if top3Buffer.count > 0 {
+            let b0LeftChildren = state.parse.lefts[top3Buffer[0].i]
+            b0l0 = b0LeftChildren.last ?? nil
+            b0l1 = b0LeftChildren.count >= 2 ? b0LeftChildren[b0LeftChildren.count - 2] : nil
+            
+            if let b0LeftMostChild = b0l0 {
+                let b0LeftMostChildLeftChildren = state.parse.lefts[b0LeftMostChild.i]
+                b0l0_of_l0 = b0LeftMostChildLeftChildren.last ?? nil
+            }
+        }
         
         // Fill up top3Stack and buffer with nil if needed
         var filledTop3Stack: [Token?] = top3Stack
@@ -100,8 +113,10 @@ public struct TransitionFeatureProvider {
         while filledTop3Stack.count < 3 { filledTop3Stack.append(nil) }
         while filledTop3Buffer.count < 3 { filledTop3Buffer.append(nil) }
         
-        // nw: 18 features for words
-        let nonStackNonBufferFeatures = [ s0l0, s0l1, s0r0, s0r1, s1l0, s1l1, s1r0, s1r1, s0l0_of_l0, s0r0_of_r0, s1l0_of_l0, s1r0_of_r0]
+        // nw: 21 features for words
+        // nt: 21 features for tags
+        // nl: 15 features for labels
+        let nonStackNonBufferFeatures = [ s0l0, s0l1, s0r0, s0r1, s1l0, s1l1, s1r0, s1r1, b0l0, b0l1, s0l0_of_l0, s1l0_of_l0, b0l0_of_l0, s0r0_of_r0, s1r0_of_r0]
         let nw = (filledTop3Stack + filledTop3Buffer + nonStackNonBufferFeatures).map({ token -> String in
             token == nil ? TransitionFeatureProvider.noneToken : token!.lemma
         })
