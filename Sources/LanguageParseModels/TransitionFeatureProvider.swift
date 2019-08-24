@@ -50,17 +50,11 @@ public struct TransitionFeatureProvider {
         var s0l1: Token? = nil
         var s0r0: Token? = nil
         var s0r1: Token? = nil
-        var s1l0: Token? =  nil
-        var s1l1: Token? = nil
-        var s1r0: Token? = nil
-        var s1r1: Token? = nil
         var b0l0: Token? = nil
         var b0l1: Token? = nil
         var s0l0_of_l0: Token? = nil
-        var s1l0_of_l0: Token? = nil
         var b0l0_of_l0: Token? = nil
         var s0r0_of_r0: Token? = nil
-        var s1r0_of_r0: Token? = nil
         
         if top3Stack.count > 0 {
             let s0LeftChildren = state.parse.lefts[top3Stack[0].i]
@@ -79,23 +73,7 @@ public struct TransitionFeatureProvider {
                 s0r0_of_r0 = s0RightMostChildRightChildren.last ?? nil
             }
         }
-        if top3Stack.count > 1 {
-            let s1LeftChildren = state.parse.lefts[top3Stack[1].i]
-            let s1RightChildren = state.parse.rights[top3Stack[1].i]
-            s1l0 = s1LeftChildren.last ?? nil
-            s1r0 = s1RightChildren.last ?? nil
-            s1l1 = s1LeftChildren.count >= 2 ? s1LeftChildren[s1LeftChildren.count - 2] : nil
-            s1r1 = s1RightChildren.count >= 2 ? s1RightChildren[s1RightChildren.count - 2] : nil
-            
-            if let s1LeftMostChild = s1l0 {
-                let s1LeftMostChildLeftChildren = state.parse.lefts[s1LeftMostChild.i]
-                s1l0_of_l0 = s1LeftMostChildLeftChildren.last ?? nil
-            }
-            if let s1RightMostChild = s1r0 {
-                let s1RightMostChildRightChildren = state.parse.rights[s1RightMostChild.i]
-                s1r0_of_r0 = s1RightMostChildRightChildren.last ?? nil
-            }
-        }
+        
         if top3Buffer.count > 0 {
             let b0LeftChildren = state.parse.lefts[top3Buffer[0].i]
             b0l0 = b0LeftChildren.last ?? nil
@@ -113,10 +91,10 @@ public struct TransitionFeatureProvider {
         while filledTop3Stack.count < 3 { filledTop3Stack.append(nil) }
         while filledTop3Buffer.count < 3 { filledTop3Buffer.append(nil) }
         
-        // nw: 21 features for words
-        // nt: 21 features for tags
-        // nl: 15 features for labels
-        let nonStackNonBufferFeatures = [ s0l0, s0l1, s0r0, s0r1, s1l0, s1l1, s1r0, s1r1, b0l0, b0l1, s0l0_of_l0, s1l0_of_l0, b0l0_of_l0, s0r0_of_r0, s1r0_of_r0]
+        // nw: 15 features for words
+        // nt: 15 features for tags
+        // nl: 9 features for labels
+        let nonStackNonBufferFeatures = [ s0l0, s0l1, s0r0, s0r1, b0l0, b0l1, s0l0_of_l0, b0l0_of_l0, s0r0_of_r0]
         let nw = (filledTop3Stack + filledTop3Buffer + nonStackNonBufferFeatures).map({ token -> String in
             token == nil ? TransitionFeatureProvider.noneToken : token!.lemma
         })
