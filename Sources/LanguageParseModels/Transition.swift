@@ -18,7 +18,7 @@ public enum Transition: Equatable, Hashable {
         return (2 * DependencyRelation.allCases.count) + 1
     }
     
-    init?(rawValue: Int) {
+    public init?(rawValue: Int) {
         let relations = DependencyRelation.allCases
         
         switch rawValue {
@@ -33,7 +33,7 @@ public enum Transition: Equatable, Hashable {
         }
     }
     
-    var rawValue: Int {
+    public var rawValue: Int {
         let relations = DependencyRelation.allCases
         func rawValue(for relation: DependencyRelation, offset: Int) -> Int {
             for (idx, element) in relations.enumerated() {
@@ -56,16 +56,16 @@ public enum Transition: Equatable, Hashable {
         }
     }
     
-    var isLeft: Bool {
+    public var isLeft: Bool {
         return (1...(DependencyRelation.allCases.count)).contains(rawValue)
     }
     
-    var isRight: Bool {
+    public var isRight: Bool {
         let relationsCount = DependencyRelation.allCases.count
         return ((relationsCount+1)...(2*relationsCount)).contains(rawValue)
     }
     
-    var isShift: Bool {
+    public var isShift: Bool {
         return self == .shift
     }
     

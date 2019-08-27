@@ -10,7 +10,7 @@ import Foundation
 import NaturalLanguage
 
 extension ParserAutomata {
-    init(rootPrefix: String, sentence: String) {
+    public init(rootPrefix: String, sentence: String) {
         let rootPrefixRange = sentence.range(of: rootPrefix)!
         let remainingSentenceRange = sentence.range(of: sentence.suffix(from: rootPrefixRange.upperBound))!
         

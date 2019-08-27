@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct ParserAutomata {
+public struct ParserAutomata {
     private let rootToken: Token
-    private(set) var buffer: [Token]
-    private(set) var stack: [Token]
-    private(set) var parse: Parse
+    public private(set) var buffer: [Token]
+    public private(set) var stack: [Token]
+    public private(set) var parse: Parse
     
     init(rootToken: Token, buffer: [Token]) {
         self.rootToken = rootToken
@@ -22,11 +22,11 @@ struct ParserAutomata {
         self.parse = Parse(tokens: [rootToken] + buffer)
     }
     
-    var isTerminal: Bool {
+    public var isTerminal: Bool {
         return stack == [rootToken] && buffer.isEmpty
     }
     
-    mutating func apply(transition: Transition) {
+    public mutating func apply(transition: Transition) {
         switch transition {
         case .shift:
             stack.append(buffer.popLast()!)
@@ -39,7 +39,7 @@ struct ParserAutomata {
         }
     }
     
-    func validTransitions() -> [Transition] {
+    public func validTransitions() -> [Transition] {
         var valids = [Transition]()
         
         if !buffer.isEmpty {

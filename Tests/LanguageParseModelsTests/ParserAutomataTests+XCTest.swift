@@ -10,7 +10,11 @@ import XCTest
 extension ParserAutomataTests {
     static var allTests: [(String, (ParserAutomataTests) -> () throws -> Void)] {
         return [
-            ("testBufferIsReversedOnInit", testBufferIsReversedOnInit),
+            ("testStackContainsRootTokenOnInit", testStackContainsRootTokenOnInit),
+            ("testInitSetsUpParseToAccountForRootToken", testInitSetsUpParseToAccountForRootToken),
+            ("testIsTerminalIsTrueIfStackContainsOnlyRootTokenAndBufferIsEmpty", testIsTerminalIsTrueIfStackContainsOnlyRootTokenAndBufferIsEmpty),
+            ("testIsTerminalIsFalseIfBufferIsNotEmpty", testIsTerminalIsFalseIfBufferIsNotEmpty),
+            ("testIsTerminalIsFalseIfStackContainsOtherElementsBesidesRootToken", testIsTerminalIsFalseIfStackContainsOtherElementsBesidesRootToken)
         ]
     }
 }

@@ -10,7 +10,7 @@ import XCTest
 
 final class ParseTests: XCTestCase {
     func testAddingRightTransitionDependency() throws {
-        let tokens = [Token(i: 0, sentenceRange: "1 2".range(of: "1")!, posTag: .number), Token(i: 1, sentenceRange: "1 2".range(of: "2")!, posTag: .number)]
+        let tokens = [Token(i: 0, sentenceRange: "1 2".range(of: "1")!, lemma: "1", posTag: .number), Token(i: 1, sentenceRange: "1 2".range(of: "2")!,  lemma: "2", posTag: .number)]
         var parse = Parse(tokens: tokens)
         
         let token = tokens[1]
@@ -22,7 +22,7 @@ final class ParseTests: XCTestCase {
     }
     
     func testAddingLeftTransitionDependency() throws {
-        let tokens = [Token(i: 0, sentenceRange: "1 2".range(of: "1")!, posTag: .number), Token(i: 1, sentenceRange: "1 2".range(of: "2")!, posTag: .number)]
+        let tokens = [Token(i: 0, sentenceRange: "1 2".range(of: "1")!, lemma: "1", posTag: .number), Token(i: 1, sentenceRange: "1 2".range(of: "2")!,  lemma: "2", posTag: .number)]
         var parse = Parse(tokens: tokens)
         
         let token = tokens[0]

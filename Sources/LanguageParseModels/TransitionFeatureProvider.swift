@@ -26,7 +26,7 @@ public struct TransitionFeatureProvider {
     let token2Index: [String: Int32]
     
     /// Tokens for <NONE> + tags + labels
-    static var domainTokens: [String] {
+    public static var domainTokens: [String] {
         return [TransitionFeatureProvider.noneToken] + TransitionFeatureProvider.index2Tags + TransitionFeatureProvider.index2DependencyRelation
     }
     
@@ -43,7 +43,7 @@ public struct TransitionFeatureProvider {
         self.token2Index = token2Index
     }
     
-    func features(for state: ParserAutomata) -> [Int32] {
+    public func features(for state: ParserAutomata) -> [Int32] {
         let top3Stack = state.stackTop(k: 3)
         let top3Buffer = state.bufferTop(k: 3)
         var s0l0: Token? =  nil
